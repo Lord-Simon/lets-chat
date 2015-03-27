@@ -82,8 +82,8 @@ if (typeof exports !== 'undefined') {
             return text.replace(imagePattern, function(url) {
                 var uri = encodeURI(_.unescape(url));
                 return '<a class="thumbnail" href="' + uri +
-                       '" target="_blank"><img src="' + uri +
-                       '" alt="Pasted Image" /></a>';
+                       '" target="_blank"><img data-src="' + uri +
+                       '" src="/media/img/loading-dark.svg" alt="Pasted Image" /></a>';
             });
         } else {
             return text.replace(linkPattern, function(url) {

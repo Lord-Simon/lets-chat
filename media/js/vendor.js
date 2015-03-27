@@ -16,4 +16,5 @@
 //= require vendor/at/jquery.atwho.js
 //= require vendor/backbone.keys/backbone.keys.js
 //= require vendor/raptorize/jquery.raptorize.js
+//= require vendor/unveil/jquery.unveil.js
 //= require common.js

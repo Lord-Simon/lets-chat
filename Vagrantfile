@@ -19,8 +19,11 @@ git clone https://github.com/sdelements/lets-chat.git
 cd lets-chat
 git checkout #{LCB_BRANCH}
 npm install
+npm install -g nodemon
 cp settings.yml.sample settings.yml
-LCB_HTTP_HOST=0.0.0.0 npm start
+find /vagrant/ -maxdepth 1 ! -path /vagrant/ -exec bash -c "f='{}' ; mount --bind \$f /home/vagrant/lets-chat/\${f##*/}" \;
+nodejs migroose.js
+LCB_HTTP_HOST=0.0.0.0 nodemon app.js
 EOF
 
 
@@ -37,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "virtualbox" do |v|
-      v.gui = true
+      v.gui = false
       v.name = "Lets Chat"
       v.memory = 1024
   end

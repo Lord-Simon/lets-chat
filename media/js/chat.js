@@ -16,4 +16,13 @@ $(function() {
         filesEnabled: $('#lcb-upload').length > 0
     });
     window.client.start();
+
+    setTimeout(function() {
+        $("img").unveil({
+            container: $('.lcb-messages'),
+            threshold: 0,
+            debounce: 0,
+            custom: false
+        });
+    }, 3000);
 });
