@@ -90,7 +90,7 @@ if (typeof exports !== 'undefined') {
         } else if (videoPattern.test(text)) {
             return text.replace(videoPattern, function(url) {
                 var uri = encodeURI(_.unescape(url));
-                return '<video controls loop preload="metadata" height="420px"><source src="' + uri +
+                return '<video controls loop preload="metadata" style="width: auto; max-height: 420px;"><source src="' + uri +
                     '" "></video>';
             });
         } else if (audioPattern.test(text)) {
