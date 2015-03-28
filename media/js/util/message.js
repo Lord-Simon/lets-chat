@@ -76,14 +76,36 @@ if (typeof exports !== 'undefined') {
 
     function links(text) {
         var imagePattern = /^\s*((https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;'"!()]*[-A-Z0-9+&@#\/%=~_|][.](jpe?g|png|gif))\s*$/i,
-        linkPattern = /((https?|ftp):\/\/[-A-Z0-9+&*@#\/%?=~_|!:,.;'"!()]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            videoPattern = /^\s*((https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;'"!()]*[-A-Z0-9+&@#\/%=~_|][.](webm|mp4))\s*$/i,
+            audioPattern = /^\s*((https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;'"!()]*[-A-Z0-9+&@#\/%=~_|][.](mp3|wav|ogg))\s*$/i,
+            linkPattern = /((https?|ftp):\/\/[-A-Z0-9+&*@#\/%?=~_|!:,.;'"!()]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
         if (imagePattern.test(text)) {
             return text.replace(imagePattern, function(url) {
                 var uri = encodeURI(_.unescape(url));
                 return '<a class="thumbnail" href="' + uri +
-                       '" target="_blank"><img data-src="' + uri +
-                       '" src="/media/img/loading-dark.svg" alt="Pasted Image" /></a>';
+                    '" target="_blank"><img data-src="' + uri +
+                    '" src="/media/img/loading.gif" alt="Pasted Image" /></a>';
+            });
+        } else if (videoPattern.test(text)) {
+            return text.replace(videoPattern, function(url) {
+                var uri = encodeURI(_.unescape(url));
+                return '<video controls loop preload="metadata" height="420px"><source src="' + uri +
+                    '" "></video>';
+            });
+        } else if (audioPattern.test(text)) {
+            return text.replace(audioPattern, function(url) {
+                var exttype = '';
+                if (audioPattern.exec(text)[3] == "mp3"){
+                    exttype= 'type="audio/mpeg"';
+                } else if (audioPattern.exec(text)[3] == "wav") {
+                    exttype= 'type="audio/wav"';
+                } else if (audioPattern.exec(text)[3] == "ogg") {
+                    exttype= 'type="audio/ogg"';
+                }
+                var uri = encodeURI(_.unescape(url));
+                return '<audio controls preload="metadata"><source src="' + uri +
+                    '" ' + exttype +'></audio>';
             });
         } else {
             return text.replace(linkPattern, function(url) {

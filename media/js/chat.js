@@ -24,5 +24,14 @@ $(function() {
             debounce: 0,
             custom: false
         });
+        $('video').on('click', function (e) {
+            if (this.paused) {
+                this.play();
+            }
+            else {
+                this.pause();
+            }
+            e.preventDefault();
+        });
     }, 3000);
 });

@@ -193,7 +193,7 @@
             } else {
                 store.set('openrooms', [id]);
             }
-            
+
             // Remove joining lock
             _.defer(function() {
                 that.joining = _.without(that.joining, id);
@@ -435,6 +435,7 @@
         });
         this.socket.on('messages:new', function(message) {
             that.addMessage(message);
+            $("img").unveil({ container: $('.lcb-messages'), threshold: 0, debounce: 0, custom: false });
         });
         this.socket.on('rooms:new', function(data) {
             that.addRoom(data);
